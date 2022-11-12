@@ -71,19 +71,18 @@
     initAccordion(){
       const thisProduct = this,
         clickableTriggers = document.querySelectorAll(select.menuProduct.clickable);
-      for(let clickableTrigger of clickableTriggers){
+      clickableTriggers.forEach((clickableTrigger) => {
         clickableTrigger.addEventListener('click', function(event) {
           event.preventDefault();
           const activeProduct = document.querySelector(classNames.menuProduct.wrapperActive);
-          if (activeProduct != null && activeProduct != thisProduct.element){
+          if (activeProduct && activeProduct !== thisProduct.element){
             activeProduct.classList.remove('active');
             
           } 
-          else {
-            thisProduct.element.classList.toggle('active');   
-          }
+          thisProduct.element.classList.toggle('active');   
+          
         });
-      }
+      });
     }
   }
   const app = {
