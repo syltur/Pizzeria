@@ -74,13 +74,14 @@
       clickableTriggers.forEach((clickableTrigger) => {
         clickableTrigger.addEventListener('click', function(event) {
           event.preventDefault();
-          const activeProduct = document.querySelector(classNames.menuProduct.wrapperActive);
+          const product = document.querySelector(select.all.menuProducts);
+          const activeProduct = product.classList.contains(classNames.menuProduct.wrapperActive);
+          console.log(activeProduct);
           if (activeProduct && activeProduct !== thisProduct.element){
             activeProduct.classList.remove('active');
-            
-          } 
-          thisProduct.element.classList.toggle('active');   
-          
+          }
+          thisProduct.element.classList.toggle('active');
+          return (event);
         });
       });
     }
