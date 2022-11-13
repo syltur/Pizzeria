@@ -58,6 +58,7 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
+      thisProduct.getElements();
       thisProduct.initAccordion();
       console.log('new Product:', thisProduct);
     }
@@ -68,22 +69,29 @@
       const menuContainer = document.querySelector(select.containerOf.menu);
       menuContainer.appendChild(thisProduct.element);
     }
+    getElements(){
+      const thisProduct = this;
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+
+    }
     initAccordion(){
-      const thisProduct = this,
-        clickableTriggers = document.querySelectorAll(select.menuProduct.clickable);
-      clickableTriggers.forEach((clickableTrigger) => {
-        clickableTrigger.addEventListener('click', function(event) {
-          event.preventDefault();
-          const product = document.querySelector(select.all.menuProducts);
-          const activeProduct = product.classList.contains(classNames.menuProduct.wrapperActive);
-          console.log(activeProduct);
-          if (activeProduct && activeProduct !== thisProduct.element){
-            activeProduct.classList.remove('active');
-          }
-          thisProduct.element.classList.toggle('active');
-          return (event);
-        });
+      const thisProduct = this;
+      thisProduct.accordionTrigger.addEventListener('click', function(event) {
+        event.preventDefault();
+        const product = document.querySelector(select.all.menuProducts);
+        const activeProduct = product.classList.contains(classNames.menuProduct.wrapperActive);
+
+        if (activeProduct == true && activeProduct !== thisProduct.element){
+          product.classList.remove('active');
+        }
+        thisProduct.element.classList.toggle('active');
+        
       });
+      
     }
   }
   const app = {
