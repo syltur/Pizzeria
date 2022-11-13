@@ -54,56 +54,65 @@
   class Product{
     constructor(id, data){
       const thisProduct = this;
-      
+
       thisProduct.id = id;
       thisProduct.data = data;
-      thisProduct.renderInMenu();
+
+      thisProduct.renderIdMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
+
       console.log('new Product:', thisProduct);
     }
-    renderInMenu(){
+
+    renderIdMenu(){
       const thisProduct = this;
       const generatedHTML = templates.menuProduct(thisProduct.data);
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
       const menuContainer = document.querySelector(select.containerOf.menu);
       menuContainer.appendChild(thisProduct.element);
     }
+
     getElements(){
       const thisProduct = this;
+
       thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
       thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
-
     }
+
     initAccordion(){
       const thisProduct = this;
-      thisProduct.accordionTrigger.addEventListener('click', function(event) {
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      clickableTrigger.addEventListener('click', function(event){
         event.preventDefault();
-        const product = document.querySelector(select.all.menuProducts);
-        const activeProduct = product.classList.contains(classNames.menuProduct.wrapperActive);
-
-        if (activeProduct == true && activeProduct !== thisProduct.element){
-          product.classList.remove('active');
+        const activeProduct = document.querySelector(select.all.menuProductsActive);
+        console.log('active products', activeProduct);
+        if (activeProduct != thisProduct.element && activeProduct !== null) {
+          activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
         }
-        thisProduct.element.classList.toggle('active');
-        
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
       });
-      
     }
   }
+
+
   const app = {
     initMenu: function(){
+
       const thisApp = this;
-      console.log('thisApp.data', thisApp.data);
-      
+
+      console.log('thisApp.data:', thisApp.data);
+
       for(let productData in thisApp.data.products){
+
         new Product(productData, thisApp.data.products[productData]);
       }
+      /* const testProduct = new Product();
+      console.log('testProduct:', testProduct);*/
     },
-
     initData: function(){
       const thisApp = this;
 
@@ -116,7 +125,7 @@
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
-
+      thisApp.initData();
       thisApp.initData();
       thisApp.initMenu();
     },
