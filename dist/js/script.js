@@ -63,8 +63,6 @@
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.processOrder();
-
-      console.log('new Product:', thisProduct);
     }
 
     renderIdMenu(){
@@ -83,6 +81,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -120,16 +119,12 @@
     processOrder(){
       const thisProduct = this; 
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
       let price = thisProduct.data.price;
       for(let paramId in thisProduct.data.params){
         const param = thisProduct.data.params[paramId];
-        console.log(paramId, param);
 
         for(let optionId in param.options){
           const option = param.options[optionId];
-          console.log(optionId, option);
-
           const selectedOption = (formData[paramId] && formData[paramId].includes(optionId));
           if(selectedOption){
             if (!option.default == true) {
@@ -138,6 +133,15 @@
           } else {
             if (!option.default == false) {
               price -= option.price;
+            }
+          }
+
+          const optionImg =  thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          if (optionImg){
+            if (selectedOption){
+              optionImg.classList.add(classNames.menuProduct.imageVisible);
+            } else {
+              optionImg.classList.remove(classNames.menuProduct.imageVisible);
             }
           }
         }
@@ -151,10 +155,7 @@
 
       const thisApp = this;
 
-      console.log('thisApp.data:', thisApp.data);
-
       for(let productData in thisApp.data.products){
-
         new Product(productData, thisApp.data.products[productData]);
       }
     },
