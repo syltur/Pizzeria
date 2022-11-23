@@ -352,7 +352,7 @@ input.error, select.error {
 }
 .cart__product-details li {
   display: block;
-  margin: 0 0 3px 0;
+  margin: 0 0 0 3px;
   font-size: 10px;
   color: #999999;
   text-transform: lowercase;
@@ -362,7 +362,7 @@ input.error, select.error {
 }
 .cart__product-details-label {
   position: relative;
-  padding: 0 6px 0 0;
+  padding: 0 0 0 6px;
   font-weight: 700;
 }
 .cart__product-details-label::after {
