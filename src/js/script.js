@@ -42,7 +42,7 @@
       form: '.cart__order',
       formSubmit: '.cart__order [type="submit"]',
       phone: '[name="phone"]',
-      address: '[name="address"]',
+      adress: '[name="adress"]',
     },
     cartProduct: {
       amountWidget: '.widget-amount',
@@ -338,12 +338,12 @@
       const thisCart = this;
       const url = settings.db.url + '/' + settings.db.orders;
       const payload = {
-        address: thisCart.dom.address.value,
-        phone: thisCart.dom.phone.value,
+        adress: thisCart.dom.adress,
+        phone: thisCart.dom.phone,
         totalPrice: thisCart.totalPrice,
         subtotalPrice: thisCart.subtotalPrice,
         totalNumber: thisCart.totalNumber,
-        deliveryFee: thisCart.dom.deliveryFee,
+        deliveryFee: thisCart.dom.deliveryFee.value,
         products: [],
       };
       
@@ -396,6 +396,7 @@
 
       thisCart.dom.totalNumber.innerHTML = totalNumber;
       thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
+      
 
 
       for (let price of thisCart.dom.totalPrice){
