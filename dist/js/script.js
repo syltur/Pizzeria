@@ -242,11 +242,8 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
-      thisWidget.setValue(settings.amountWidget.defaultValue);
+      thisWidget.setValue(thisWidget.input.value || settings.amountWidget.defaultValue);
       thisWidget.initActions();
-
-      console.log('AmountWidger', thisWidget);
-      console.log('constructor arguments:', element);
     }
     getElements(element){
       const thisWidget = this;
@@ -265,7 +262,6 @@
       }
 
       thisWidget.input.value = thisWidget.value;
-      console.log(thisWidget.value);
       thisWidget.announce();
     }
     announce() {
@@ -392,6 +388,10 @@
       if (totalNumber != 0){
         thisCart.totalPrice = subtotalPrice + deliveryFee;
         thisCart.dom.deliveryFee.innerHTML = deliveryFee;
+      } else if(totalNumber == 0){
+        
+        thisCart.totalPrice = 0;
+        thisCart.dom.deliveryFee.innerHTML = 0;
       }
 
       thisCart.dom.totalNumber.innerHTML = totalNumber;
