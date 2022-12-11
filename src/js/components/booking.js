@@ -181,6 +181,7 @@ class Booking {
         thisBooking.selectedTable = tableId;
       }
     }
+    console.log(thisBooking.selectedTable);
   }
   unselectTables() {
     const thisBooking = this;
@@ -189,6 +190,7 @@ class Booking {
       table.classList.remove(classNames.booking.selected);
     }
   }
+  
 
 
   render(element) {
@@ -214,16 +216,17 @@ class Booking {
   }
   sendBooking(){
     const thisBooking = this;
+    console.log(thisBooking.selectedTable);
     const url = settings.db.url + '/' + settings.db.bookings;
 
-    if(typeof thisBooking.choosenTable == 'undefined'){
+    if(typeof thisBooking.selectedTable == 'undefined'){
       window.alert('Please choose a table');
     }
     else {
       const payload = {
-        date: thisBooking.choosenTable.date,
-        hour: thisBooking.choosenTable.hour,
-        table: parseInt(thisBooking.choosenTable.tableId),
+        date: thisBooking.selectedTable.date,
+        hour: thisBooking.selectedTable.hour,
+        table: parseInt(thisBooking.selectedTable.tableId),
         duration: parseInt(thisBooking.dom.durationInput.value),
         ppl: parseInt(thisBooking.dom.peopleInput.value),
         starters: [],
@@ -234,9 +237,9 @@ class Booking {
       for(let starter of thisBooking.dom.starters){
         if (starter.checked){
           payload.starters.push(starter.value);
-          console.log(starter);
         }
       }
+      console.log('payload', payload);
       const options = {
         method: 'POST',
         headers: {
@@ -248,6 +251,8 @@ class Booking {
       fetch(url, options)
         .then(thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table))
         .then(thisBooking.updateDOM());
+        
+      console.log(thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table));
     }
   }
 
