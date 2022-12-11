@@ -1,3 +1,4 @@
+
 import { classNames, select, settings, templates } from '../settings.js';
 import { utils } from '../utils.js';
 import AmountWidget from './AmountWidget.js';
@@ -150,9 +151,7 @@ class Booking {
 
     if (
       typeof thisBooking.booked[thisBooking.date] == 'undefined' ||
-      typeof thisBooking.booked[thisBooking.date][thisBooking.hour] ==
-        'undefined'
-    ) {
+      typeof thisBooking.booked[thisBooking.date][thisBooking.hour] =='undefined') {
       allAvailable = true;
     }
 
@@ -212,24 +211,12 @@ class Booking {
     thisBooking.dom.wrapper = element;
     thisBooking.dom.wrapper.innerHTML = generatedHTML;
 
-    thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(
-      select.booking.peopleAmount
-    );
-    thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(
-      select.booking.hoursAmount
-    );
-    thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(
-      select.widgets.datePicker.wrapper
-    );
-    thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(
-      select.widgets.hourPicker.wrapper
-    );
-    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(
-      select.booking.tables
-    );
-    thisBooking.dom.tablesDiv = thisBooking.dom.wrapper.querySelector(
-      select.containerOf.floorPlan
-    );
+    thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
+    thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+    thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
+    thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
+    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
   }
 
   initWidgets() {
@@ -247,7 +234,7 @@ class Booking {
       thisBooking.updateDOM();
     });
     
-    thisBooking.dom.tablesDiv.addEventListener('click', function (event) {
+    thisBooking.dom.floorPlan.addEventListener('click', function (event) {
       thisBooking.selectTable(event.target);
     });
   }
