@@ -2,8 +2,15 @@ import {settings, select, classNames, templates} from './settings.js';
 import Product from './components/product.js';
 import Cart from './components/cart.js';
 import Booking from './components/booking.js';
+import HomePage from './components/HomePage.js';
 
 const app = {
+  initHomePage: function(){
+    const thisApp = this;
+
+    const homePageElem = document.querySelector(select.containerOf.homePage);
+    thisApp.homePage = new HomePage(homePageElem);
+  },
   initBooking: function(){
     const thisApp = this;
     const bookingWidget= document.querySelector(select.containerOf.booking);
@@ -96,6 +103,7 @@ const app = {
     thisApp.initPages();
     thisApp.initData();
     thisApp.initCart();
+    thisApp.initHomePage();
     thisApp.initBooking();
   }
 };
