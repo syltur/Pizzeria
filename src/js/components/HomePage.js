@@ -1,11 +1,11 @@
-import { templates} from '../settings.js';
+import { templates, select} from '../settings.js';
 
 class HomePage{
   constructor(element){
     const thisHomePage = this;
 
     thisHomePage.render(element);
-
+    thisHomePage.initActions();
   }
   render(element){
     const thisHomePage = this;
@@ -29,6 +29,11 @@ class HomePage{
     console.log(flkty);
 
   }
-
+  initActions(){
+    const tileLink = document.querySelector(select.nav.tileLink);
+    tileLink.addEventListener('click', function(){
+      tileLink.classList.add('active');
+    });
+  }
 }
 export default HomePage;
