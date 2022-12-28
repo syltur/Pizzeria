@@ -1,1 +1,1 @@
-https://replit.com/join/axnjietrig-syltur
+https://pizza.syltur.repl.co
